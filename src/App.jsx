@@ -107,7 +107,7 @@ function App() {
   return (
     <section className="flex flex-col items-center justify-center min-h-screen bg-[#333]">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-bold uppercase text-slate-50">
+        <h1 className="text-4xl text-center font-bold uppercase text-slate-50">
           Odliczanie do 10 dnia przyszłego miesiąca
         </h1>
         <div className="text-2xl text-center">
@@ -127,7 +127,7 @@ function App() {
             value={balance}
             onChange={handleBalanceChange}
           />
-          <p className="p-4 text-2xl font-bold text-white">
+          <p className="p-4 text-2xl font-bold text-white text-center">
             Możesz wydać dziennie: {dailyAllowance} PLN
           </p>
         </div>
