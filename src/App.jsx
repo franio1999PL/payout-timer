@@ -7,7 +7,7 @@ function App() {
     let month = now.getMonth();
 
     // Sprawdzenie, czy obecna data jest po szacowanej dacie wypłaty bieżącego miesiąca
-    let targetDate = new Date(year, month, 10);
+    let targetDate = new Date(year, month, 10, 19, 0, 0); // Ustawienie godziny na 19:00
     const dayOfWeek = targetDate.getDay();
 
     if (dayOfWeek === 0 || dayOfWeek === 1) {
@@ -22,7 +22,7 @@ function App() {
         year++;
         month = 0;
       }
-      targetDate = new Date(year, month, 10);
+      targetDate = new Date(year, month, 10, 19, 0, 0); // Ustawienie godziny na 19:00
       const newDayOfWeek = targetDate.getDay();
       if (newDayOfWeek === 0 || newDayOfWeek === 1) {
         targetDate.setDate(targetDate.getDate() - (newDayOfWeek + 2));
@@ -124,7 +124,7 @@ function App() {
         <div className="text-2xl text-center text-white">
           {`Szacowany dzień wypłaty: ${getDayName(
             targetDate,
-          )} (${targetDate.toLocaleDateString()})`}
+          )} (${targetDate.toLocaleDateString()} o 19:00)`}
         </div>
         <div className="flex flex-col items-center justify-center">
           <input
