@@ -4,23 +4,31 @@ function App() {
   const calculateTargetDate = () => {
     const now = new Date();
     let year = now.getFullYear();
-    let month = now.getMonth() + 1;
+    let month = now.getMonth();
 
-    if (month === 12) {
-      year++;
-      month = 0;
-    }
-
+    // Sprawdzenie, czy obecna data jest po szacowanej dacie wypłaty bieżącego miesiąca
     let targetDate = new Date(year, month, 10);
-
-    // Sprawdzenie, czy 10 dzień miesiąca wypada w weekend lub poniedziałek
     const dayOfWeek = targetDate.getDay();
+
     if (dayOfWeek === 0 || dayOfWeek === 1) {
-      // Niedziela (0) lub Poniedziałek (1)
       targetDate.setDate(targetDate.getDate() - (dayOfWeek + 2));
     } else if (dayOfWeek === 6) {
-      // Sobota (6)
       targetDate.setDate(targetDate.getDate() - 1);
+    }
+
+    if (now > targetDate) {
+      month += 1;
+      if (month === 12) {
+        year++;
+        month = 0;
+      }
+      targetDate = new Date(year, month, 10);
+      const newDayOfWeek = targetDate.getDay();
+      if (newDayOfWeek === 0 || newDayOfWeek === 1) {
+        targetDate.setDate(targetDate.getDate() - (newDayOfWeek + 2));
+      } else if (newDayOfWeek === 6) {
+        targetDate.setDate(targetDate.getDate() - 1);
+      }
     }
 
     return targetDate;
@@ -108,7 +116,7 @@ function App() {
     <section className="flex flex-col items-center justify-center min-h-screen bg-[#333]">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl text-center font-bold uppercase text-slate-50">
-          Odliczanie do 10 dnia przyszłego miesiąca
+          Odliczanie do szacowanego dnia wypłaty
         </h1>
         <div className="text-2xl text-center">
           {timerComponents.length ? timerComponents : <span>Minęło już!</span>}
